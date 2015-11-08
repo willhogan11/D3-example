@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>D3.js Demo</title>
+    <meta charset="UTF-8">
+    <style type="text/css"></style>
+    <script type="text/javascript" src="d3.js"></script>
+  </head>
+  <body>
+      
+		<script type="text/javascript">
+            
+            var body = d3.select("body");
+            var svg = body.append("svg");    
+            var myData = [];
+            
+            
+            for (var i = 0; i < 20; i++){
+                myData[i] = Math.floor((Math.random() * 100) + 1);
+            }
+            console.log(myData);
+          
+            
+            // the 'rects' var name is basically applied to the start of each section below
+            var rects = svg.selectAll("rect")
+               .data(myData) // ties the .data values of each array to the myData values of each part of it's array
+               .enter()
+               .append("rect")
+               .attr("x", function(datum, index) {
+                    return index * 12;
+                })
+               .attr("y", 0)
+               .attr("width", 10)
+               .attr("height", function(datum, index) {
+                    return datum;
+                })
+            
+            setInterval(function() {
+            
+                for (var i = 0; i < 20; i++){
+                    myData[i] = Math.floor((Math.random() * 100) + 1);
+                }
+                var rects = svg.selectAll("rect")
+                     .data(myData)
+                     .transition()
+                     .duration(750)
+                     .delay(function(datum, index) {return index * 100;})
+                     .attr("height", function(datum, index) {
+                         return datum;}
+                      );
+            }, 500);
+        
+        </script>
+		
+  </body>
+</html>
